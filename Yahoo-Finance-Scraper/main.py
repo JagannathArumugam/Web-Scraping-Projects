@@ -22,8 +22,15 @@ def main():
             parsed_page = soup(page_source, 'html.parser')
             try:
                 # Price element
-                stock_price = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}'}).text
-                print(f'[-] Ticker {ticker} = {stock_price}')
+                stock_price = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}',
+                                                                      'data-field': 'regularMarketPrice'}).text
+                # Price change element
+                price_change = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}',
+                                                                       'data-field': 'regularMarketChange'}).text
+                # Price change element
+                percent_change = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}',
+                                                                         'data-field': 'regularMarketChangePercent'}).text
+                print(f'[-] {ticker} is {stock_price} {price_change} {percent_change}')
             except:
                 print('Error. Cannot Find the Price Element.')
         else:

@@ -27,12 +27,12 @@ def main():
                 # Price change element
                 price_change = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}',
                                                                        'data-field': 'regularMarketChange'}).text
-                # Price change element
+                # Percentage change element
                 percent_change = parsed_page.find('fin-streamer', attrs={'data-symbol': f'{ticker}',
                                                                          'data-field': 'regularMarketChangePercent'}).text
                 print(f'[-] {ticker} is {stock_price} {price_change} {percent_change}')
             except:
-                print('Error. Cannot Find the Price Element.')
+                print('Error. Cannot Find the Element.')
         else:
             print(f'[x] Request to the page {full_url} failed.\n[x] Status code: {stock_page.status_code}')
         time.sleep(2)

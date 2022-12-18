@@ -40,7 +40,12 @@ def main():
         movie_object = {'title': movie_title, 'url': movie_url}
         actor_object['movies'].append(movie_object)
 
-    print(actor_object)
+    # print(actor_object)
+
+    f = open(actor_name+'.json', 'w')
+    actor_json = json.dumps(actor_object)
+    f.write(actor_json)
+    f.close()
 
 
 if __name__ == '__main__':

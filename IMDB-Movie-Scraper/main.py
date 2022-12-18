@@ -29,10 +29,18 @@ def main():
     print(f'\n[-] Status code: {actor_request.status_code}\n')
 
     actor_page = soup(actor_request.text, 'html.parser')
-    movie_names = actor_page.findAll('a', class_='ipc-metadata-list-summary-item__t')
+    movie_section = actor_page.find('div', class_='date-credits-accordion')
+    movie_names = movie_section.findAll('a', class_='ipc-metadata-list-summary-item__t')
 
-    for movie in movie_names[:4]:
-        print(movie.text)
+    actor_object = {'name': actor_name, 'url': actor_url, 'movies': []}
+
+    for movie in movie_names:
+        movie_title = movie.text
+        movie_url = base_url+movie['href']
+        movie_object = {'title': movie_title, 'url': movie_url}
+        actor_object['movies'].append(movie_object)
+
+    print(actor_object)
 
 
 if __name__ == '__main__':
